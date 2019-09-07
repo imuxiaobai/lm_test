@@ -9,7 +9,7 @@
 #include <math.h>
 // #include <vertex.h>
 // #include <edge.h>
-
+using namespace std;
 namespace lm_test{
     
 //设y=Jx 其中 y维数为n×1, 雅各比矩阵J为 n*m, x维数为 m×1 [在这里x为abc，3×1  y为y，1×1]  
@@ -18,7 +18,7 @@ namespace lm_test{
 // class Edge;
 /*vertex */
 typedef Eigen::VectorXd State_type; //x delta_x
-typedef unsigned int Dimension_type;
+typedef unsigned long int Dimension_type;
 typedef unsigned long int Id_type;
 
 /*edge */
@@ -36,8 +36,10 @@ typedef Eigen::VectorXd Observation_type;
 // typedef Eigen::Matrix<double, -1, -1> Hession_type;
 typedef Eigen::MatrixXd Hession_type;
 typedef Eigen::VectorXd B_type;
-typedef unsigned long int WholeDimension; 
+typedef unsigned long int WholeDimension;
 
+typedef Eigen::Quaterniond Qd;
+typedef Eigen::Quaternionf Qf;
 }
 
 

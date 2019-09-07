@@ -70,7 +70,7 @@ int main()
     std::normal_distribution<double> noise(0.,w_sigma);
 
     // 构建 problem
-    Problem problem;
+    Problem problem(Problem::ProblemType::GENERIC_PROBLEM);
     shared_ptr< CurveFittingVertex > vertex(new CurveFittingVertex());
 
     // 设定待估计参数 a, b, c初始值

@@ -8,10 +8,11 @@ namespace lm_test{
 static Id_type vertex_id = 0;
 class Vertex{
 public:
-    explicit Vertex(Dimension_type x_dimension_):x_dimension_(x_dimension_){
+    explicit Vertex(Dimension_type x_dimension_, Dimension_type local_dimension_ = -1):x_dimension_(x_dimension_),local_dimension_(local_dimension_){
         x_.resize(x_dimension_);
         x_tmp_.resize(x_dimension_);
         vertex_id_ = vertex_id++;
+        local_dimension_ = local_dimension_ < 0 ? x_dimension_ : local_dimension_;
     }
 
     virtual ~Vertex(){}
@@ -25,18 +26,26 @@ public:
         x_ = x_tmp_;
     }
 
+    /*确定一个节点是相机还是特征点，在子类中实现 */
+    virtual std::string TypeInfo() {return "NoType";};
+
+    /*重定义加法，相机是记得写四元数加法 */
+    virtual void plus(const State_type &delta_x) {};
 
     /* 返回状态变量 */
-    State_type x() const {
+    State_type x() {
         return x_;
     }
-    State_type x_tmp() const {
+    State_type x_tmp() {
         return x_tmp_;
     }
     /* 返回维数,id,oid */
     Dimension_type x_dimension() const {
         // std::cout << "  " << x_dimension_ << std::endl;
         return x_dimension_;
+    }
+    Dimension_type local_dimension() const {
+        return local_dimension_;
     }
     Id_type id() const {
         return vertex_id_;
@@ -64,8 +73,8 @@ protected:
     State_type x_tmp_;
 
     /* 状态量维度， 如位姿是6或7维 */
-    Dimension_type x_dimension_;
-
+    Dimension_type x_dimension_;    //理论上的 状态 ，即 位姿为7
+    Dimension_type local_dimension_;    //实际求的时候 的状态，即位姿为6
     /* 状态量的id,每新建一个就自动累加 */
     Id_type vertex_id_ = 0;
     // vectorXd vertex;

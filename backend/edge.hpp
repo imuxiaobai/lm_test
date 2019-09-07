@@ -43,6 +43,9 @@ public:
 
     virtual void computeJacobian(){};
 
+    /*判断边的类型，在子类中实现 */
+    virtual std::string TypeInfo(){return "NoType";};
+
     void setInformation(const Information_type &information){
         information_ = information;
     }
